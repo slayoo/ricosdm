@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for i in /data/slayoo/united/$1*; do
+#  if test -e $i/Shima_scalars_micro.nc; then continue; fi
+  echo $i
+  LC_ALL=C /usr/src/gdl/src/gdl -quiet -e "knmistatfiles, '$i'" 
+done

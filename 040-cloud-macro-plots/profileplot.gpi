@@ -1,0 +1,14 @@
+set term postscript color solid portrait font "Arial,9" lw .5
+set output 'profileplot.ps'
+set key below
+set multiplot layout 3,2 rowsfirst
+set yrange [0:3]
+set xrange [.5:24.5]
+set xlabel "time [h]"
+set xtics 1 nomirror scale .25
+set ytics scale .25
+set grid noxtics ytics
+set label " //" at 4.75,0
+set label " //" at 4.75,3
+set nokey
+load 'profileplot_auto.gpi'

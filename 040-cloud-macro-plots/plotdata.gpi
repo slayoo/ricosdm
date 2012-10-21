@@ -1,0 +1,15 @@
+set term postscript color enhanced solid portrait font "Arial,6" lw .5
+set output 'plot.ps'
+#set term svg enhanced solid font "Arial,4" lw .5
+#set output 'plot.svg'
+
+set key at screen .36, .58 box
+
+set multiplot layout 5,2
+set xtics 1
+set xlabel "time [h]"
+set grid noxtics ytics
+
+set xrange [0:4]
+load 'plotdata_auto.gpi'
+#pause -1

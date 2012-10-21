@@ -1,0 +1,8 @@
+for i in /data/slayoo/united/*; do
+  if test `ls -1 $i/*united.bin.nc 2>/dev/null | wc -l` -eq 1441; then
+    echo "--- Purging bin.gz files from $i"
+    rm -f $i/*united.bin.gz
+    continue
+  fi
+  echo "--- Skipping $i"
+done

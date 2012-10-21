@@ -1,0 +1,21 @@
+#!/bin/bash
+
+for i in /data/slayoo/united/$1*; do 
+
+  echo $i
+
+#  if test -e $i/RICO.dmp00086400.united.bin.nc; then 
+#    echo "Skipping $i..."
+#    continue
+#  fi
+
+  F=`basename $i`
+  DIR=`find /shin-ichiro-*/ -maxdepth 1 -type d -name $F`
+  ln -s -f $DIR/CReSS*/user.conf $i/user.conf
+  ln -s -f $DIR/CReSS*/Src/outpbl.f90 outpbl.f90
+  ln -s -f $DIR/CReSS*/Src/outdmp.f90 outdmp.f90
+  ./cressbin2ncdf.sh $i
+  rm outpbl.f90
+  rm outdmp.f90
+
+done

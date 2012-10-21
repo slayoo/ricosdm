@@ -1,0 +1,237 @@
+p000 =  2
+p005 =  3
+p010 =  4
+p015 =  5
+p020 =  6
+p025 =  7
+p030 =  8
+p035 =  9
+p040 = 10
+p045 = 11
+p050 = 12
+p055 = 13
+p060 = 14
+p065 = 15
+p070 = 16
+p075 = 17
+p080 = 18
+p085 = 19
+p090 = 20
+p095 = 21
+p100 = 22
+
+reset
+
+#sim1 = '10122402'; lab1 = 'sdm-coarse-32';  lw1 = 2
+#sim2 = '10122802'; lab2 = 'sdm-middle-32';  lw2 = 1
+#sim3 = '12010417'; lab3 = 'sdm-high-32';   lw3 = .5
+
+#sim1 = '10122403'; lab1 = 'sdm-coarse-128'; lw1 = 2
+#sim2 = '10122803'; lab2 = 'sdm-middle-128'; lw2 = 1
+#sim3 = '10122404'; lab3 = 'sdm-coarse-512'; lw3 = 2
+
+sim1 = '10122401'; lab1 = 'sdm-coarse-8';   lw1 = 2
+sim2 = '10122801'; lab2 = 'sdm-middle-8';   lw2 = 1
+sim3 = '11010502'; lab3 = 'sdm-high-8';     lw3 = .5
+
+##sim1 = '11061401'; lab1 = 'sdm-middle-32-a';   lw1 = 2
+##sim2 = '11061403'; lab2 = 'sdm-middle-32-b';   lw2 = 1
+##sim3 = '11061404'; lab3 = 'sdm-middle-32-c';   lw3 = .5
+
+set term postscript landscape color solid enhanced font "Arial,10" lw .5
+set output 'plots_' . sim1 . '_' . sim2 . '_' . sim3 . '.ps'
+set grid
+set ytics .2
+set tmargin .1
+set rmargin .2
+set lmargin 7 
+set bmargin 4
+
+set multiplot #layout 3,5 columns
+set size .17,.35
+
+set ylabel 'height [m]'
+set yrange [.35:1.3]
+set format y '%3.1f'
+
+
+X=0
+set border 7
+#set xrange [-1.5:2.5]
+#set xtics 1
+#set format x ''
+#set xlabel ''
+#set origin X,.62
+#tmp = lw1
+#f = sim1; plot \
+#  f.'_w' using (column(p005)):($1/1000):(column(p095)-column(p005)):(0) with vectors lw tmp*1 nohead notitle, \
+#  f.'_w' using (column(p025)):($1/1000):(column(p075)-column(p025)):(0) with vectors lw tmp*3 nohead notitle, \
+#  f.'_w' using (column(p045)):($1/1000):(column(p055)-column(p045)):(0) with vectors lw tmp*6 nohead notitle 
+#set origin X,.31
+#tmp = lw2
+#f = sim2; replot 
+#set format x '%g'
+#set xlabel 'w [m/s]'
+#set origin X,0
+#tmp = lw3
+#f = sim3; replot 
+
+X=.12
+set xrange [-1.4:+1.4]
+set xtics 1
+set format x ''
+set xlabel ''
+set origin X,.62
+tmp = lw1
+f = sim1; plot \
+  f.'_RH' using ((column(p005)-1)*100):($1/1000):((column(p095)-column(p005))*100):(0) with vectors lw tmp*1 nohead notitle, \
+  f.'_RH' using ((column(p025)-1)*100):($1/1000):((column(p075)-column(p025))*100):(0) with vectors lw tmp*3 nohead notitle, \
+  f.'_RH' using ((column(p045)-1)*100):($1/1000):((column(p055)-column(p045))*100):(0) with vectors lw tmp*6 nohead notitle 
+set origin X,.31
+tmp = lw2
+f = sim2; replot 
+set xlabel 'S = RH - 1 [%]'
+set format x '%g'
+set origin X,0
+tmp = lw3
+f = sim3; replot 
+
+set ylabel ''
+set format y ''
+set border 5
+
+X=.24
+set xrange [15:115]
+set xtics 20,40
+set format x ''
+set xlabel ''
+set origin X,.62
+tmp = lw1
+f = sim1; plot \
+  f.'_CDNC' using (column(p005)):($1/1000):(column(p095)-column(p005)):(0) with vectors lw tmp*1 nohead notitle, \
+  f.'_CDNC' using (column(p025)):($1/1000):(column(p075)-column(p025)):(0) with vectors lw tmp*3 nohead notitle, \
+  f.'_CDNC' using (column(p045)):($1/1000):(column(p055)-column(p045)):(0) with vectors lw tmp*6 nohead notitle 
+set origin X,.31
+tmp = lw2
+f = sim2; replot 
+set xlabel 'CDNC [cm-3]'
+set format x '%g'
+set origin X,0
+tmp = lw3
+f = sim3; replot 
+
+X=.36
+set xrange [.5:24.5]
+set xtics 5
+set format x ''
+set xlabel ''
+set origin X,.62
+tmp = lw1
+f = sim1; plot \
+  f.'_reff' using (column(p005)):($1/1000):(column(p095)-column(p005)):(0) with vectors lw tmp*1 nohead notitle, \
+  f.'_reff' using (column(p025)):($1/1000):(column(p075)-column(p025)):(0) with vectors lw tmp*3 nohead notitle, \
+  f.'_reff' using (column(p045)):($1/1000):(column(p055)-column(p045)):(0) with vectors lw tmp*6 nohead notitle 
+set origin X,.31
+tmp = lw2
+f = sim2; replot 
+set xlabel 'r_{eff} [{/Symbol m}m]'
+set format x '%g'
+set origin X,0
+tmp = lw3
+f = sim3; replot 
+
+X=.48
+set xrange [0:1]
+set xtics .5
+set format x ''
+set xlabel ''
+set origin X,.62
+tmp = lw1
+f = sim1; plot \
+  f.'_lwc' using (column(p005)):($1/1000):(column(p095)-column(p005)):(0) with vectors lw tmp*1 nohead notitle, \
+  f.'_lwc' using (column(p025)):($1/1000):(column(p075)-column(p025)):(0) with vectors lw tmp*3 nohead notitle, \
+  f.'_lwc' using (column(p045)):($1/1000):(column(p055)-column(p045)):(0) with vectors lw tmp*6 nohead notitle 
+set origin X,.31
+tmp = lw2
+f = sim2; replot 
+set xlabel 'LWC [g/m^3]'
+set format x '%g'
+set origin X,0
+tmp = lw3
+f = sim3; replot 
+
+#X=.60
+#set xrange [.5:24.5]
+#set xtics 5
+#set format x ''
+#set xlabel ''
+#set origin X,.62
+#f = sim1; plot \
+#  f.'_mvr' using (column(p005)):($1/1000):(column(p095)-column(p005)):(0) with vectors lw 1 nohead notitle, \
+#  f.'_mvr' using (column(p025)):($1/1000):(column(p075)-column(p025)):(0) with vectors lw 3 nohead notitle, \
+#  f.'_mvr' using (column(p045)):($1/1000):(column(p055)-column(p045)):(0) with vectors lw 6 nohead notitle 
+#set origin X,.31
+#f = sim2; replot 
+#set xlabel '<r^3>^{1/3} [{/Symbol m}m]'
+#set format x '%g'
+#set origin X,0
+#f = sim3; replot 
+
+X=.60
+set xrange [.45:1.05]
+set xtics .2
+set format x ''
+set xlabel ''
+set origin X,.62
+tmp = lw1
+f = sim1; plot \
+  f.'_kcf' using (column(p005)):($1/1000):(column(p095)-column(p005)):(0) with vectors lw tmp*1 nohead notitle, \
+  f.'_kcf' using (column(p025)):($1/1000):(column(p075)-column(p025)):(0) with vectors lw tmp*3 nohead notitle, \
+  f.'_kcf' using (column(p045)):($1/1000):(column(p055)-column(p045)):(0) with vectors lw tmp*6 nohead notitle 
+set origin X,.31
+tmp = lw2
+f = sim2; replot 
+set xlabel 'k [1]'
+set format x '%g'
+set origin X,0
+tmp = lw3
+f = sim3; replot 
+
+X=.72
+set border 13
+set xrange [-.5:6.5]
+set xtics 2
+set format x ''
+set xlabel ''
+set origin X,.62
+tmp = lw1
+f = sim1; plot \
+  f.'_stdev' using (column(p005)):($1/1000):(column(p095)-column(p005)):(0) with vectors lw tmp*1 nohead notitle, \
+  f.'_stdev' using (column(p025)):($1/1000):(column(p075)-column(p025)):(0) with vectors lw tmp*3 nohead notitle, \
+  f.'_stdev' using (column(p045)):($1/1000):(column(p055)-column(p045)):(0) with vectors lw tmp*6 nohead notitle 
+set origin X,.31
+tmp = lw2
+f = sim2; replot 
+set xlabel '{/Symbol s}_r [{/Symbol m}m]'
+set format x '%g'
+set origin X,0
+set label lab1 at screen .425,.98
+set label lab2 at screen .425,.67
+set label lab3 at screen .425,.36 
+tmp = lw3
+f = sim3; replot 
+
+# 5-95
+set label "5th - 95th percentile" at screen .45,.27
+set arrow to screen .583,.185 from screen .45,.265 filled size .3,20
+set arrow to screen .439,.185 from screen .45,.265 filled size .3,20
+# interquartile
+set label "interquartile" at screen .51,.25
+set arrow to screen .537,.185 from screen .51,.245 filled size .3,20
+set arrow to screen .457,.185 from screen .51,.245 filled size .3,20
+# 5-95
+set label "median +/- 5%" at screen .55,.235
+set arrow to screen .502,.185 from screen .55,.23 filled size .3,20
+set arrow to screen .484,.185 from screen .55,.23 filled size .3,20
+
+unset multiplot

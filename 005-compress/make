@@ -1,0 +1,15 @@
+#!/bin/bash
+
+for i in /data/slayoo/united/*$1*; do 
+
+  if test -e $i/RICO.dmp00086400.united.bin.gz; then 
+    echo "Skipping $i..."
+    continue
+  fi
+
+  cd $i
+  for j in *.united.bin; do
+    gzip $j;
+  done;
+
+done

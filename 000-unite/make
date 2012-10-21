@@ -1,0 +1,80 @@
+#!/bin/bash
+OPWD=`pwd`
+mkdir -f /data/slayoo/united
+
+for i in /shin-ichiro-*/$1; do 
+#for i in /shin-ichiro-2/10*/1*; do 
+
+  RUN=`basename $i`
+  if test `ls -1 /data/slayoo/united/$RUN/*united.bin | wc -l` -eq 1441; then
+    echo "--- Skipping $i"
+    continue
+  fi
+
+  echo "--- Copying $i to /data/slayoo... (excluding *.bin)"
+  rsync --exclude=*.bin --size-only -r $i /data/slayoo/tmp/
+  echo "--- done."
+
+  cd /data/slayoo/tmp/`basename $i`/CReSS*
+  echo "--- Compiling unite.exe"
+  chmod -R u+w .. 
+  rm unite.exe Src/unite.exe
+  ./compile.csh clean 
+  echo "
+    LDFLAGS=
+    FFLAGS=-IGadgetry
+    FC=gfortran
+    FC_CPP=gfortran
+  " > compile.conf
+  ./compile.csh unite < compile.conf
+  if `test 0 -eq $?`; then
+    echo "--- done."
+  else 
+    echo "--- error."
+    exit 1
+  fi
+
+  echo "--- Symlinking binary files..."
+  for j in $i/CReSS*/*.bin; do 
+    ln -f -s $j /data/slayoo/tmp/$RUN/CReSS*/;
+  done;
+  echo "--- done."
+
+  echo "--- Patching user.conf"
+  sed 's/flitv_uni  =  900.e0/flitv_uni  =  60.e0/' user.conf > user.conf.tmp && mv user.conf.tmp user.conf
+  sed 's/stime  =[ ]*[0-9]*.e0/stime  =     0.e0/' user.conf > user.conf.tmp && mv user.conf.tmp user.conf
+  echo "--- done."
+
+  echo "--- Uniting..."
+  cd /data/slayoo/tmp/`basename $i`/CReSS*
+  ./unite.exe < user.conf
+  if `test 0 -eq $?`; then
+    echo "--- done."
+  else 
+    echo "--- error."
+    exit 1
+  fi
+
+#  echo "--- Moving united files to /data/slayoo ..."
+#  mkdir /data/slayoo/united/`basename $i`
+#  rsync --size-only *.united.bin /data/slayoo/united/`basename $i`/
+#  if `test 0 -eq $?`; then
+#    echo "--- done."
+#  else 
+#    echo "--- error."
+#    exit 1
+#  fi
+
+#  echo "--- Cleaning up..."
+#  rm -rf /data/slayoo/tmp/`basename $i`
+#  if `test 0 -eq $?`; then
+#    echo "--- done."
+#  else 
+#    echo "--- error."
+#    exit 1
+#  fi
+
+  cd $OPWD
+
+done
+

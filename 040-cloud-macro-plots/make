@@ -1,0 +1,14 @@
+#!/bin/bash
+gdl -quiet -e getdata
+for i in *.tmp; do 
+  cat $i | tr -s "\n" > $i.tmp
+  mv $i.tmp $i
+done;
+
+LC_ALL=C /usr/src/gdl/src/gdl -quiet -e plotdata
+gnuplot plotdata.gpi
+ps2pdf plot.ps
+
+LC_ALL=C /usr/src/gdl/src/gdl -quiet profileplot.pro
+gnuplot profileplot.gpi
+ps2pdf profileplot.ps

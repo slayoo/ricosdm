@@ -1,0 +1,6 @@
+for i in /home/pace/resu/RICO/rf*/*001.nc; do 
+  i=`dirname $i`;
+  LC_ALL=C /usr/src/gdl/src/gdl -quiet -e "ffssp, '$i'"
+done;
+for i in *.ps; do ps2pdf $i; done;
+rm *.ps
