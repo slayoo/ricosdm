@@ -1,0 +1,21 @@
+set term postscript solid enhanced color
+set output 'oapplot.ps'
+set xlabel 'particle diameter [{/Symbol m}m]'
+set ylabel 'concentration [#/l/{/Symbol m}m]'
+set xrange [10:3e3]
+set yrange [.5e-6:2]
+set logscale xy
+set format xy "%1.0e"
+set ytics 100
+set grid
+set key bottom left
+plot \
+  '10122401.txt' u 1:($2>1e-6?$2:NaN) w histeps t 'sdm-coarse-8'   lw 2 lc rgb "red",  \
+  '10122402.txt' u 1:($2>1e-6?$2:NaN) w histeps t 'sdm-coarse-32'  lw 4 lc rgb "red",  \
+  '10122403.txt' u 1:($2>1e-6?$2:NaN) w histeps t 'sdm-coarse-128' lw 6 lc rgb "red",  \
+  '10122404.txt' u 1:($2>1e-6?$2:NaN) w histeps t 'sdm-coarse-512' lw 8 lc rgb "red",  \
+  '10122801.txt' u 1:($2>1e-6?$2:NaN) w histeps t 'sdm-middle-8'   lw 4 lc rgb "blue", \
+  '10122802.txt' u 1:($2>1e-6?$2:NaN) w histeps t 'sdm-middle-32'  lw 6 lc rgb "blue", \
+  '10122803.txt' u 1:($2>1e-6?$2:NaN) w histeps t 'sdm-middle-128' lw 8 lc rgb "blue", \
+  '11010502.txt' u 1:($2>1e-6?$2:NaN) w histeps t 'sdm-high-8'     lw 6 lc rgb "green",\
+  '12010417.txt' u 1:($2>1e-6?$2:NaN) w histeps t 'sdm-high-32'    lw 8 lc rgb "green"

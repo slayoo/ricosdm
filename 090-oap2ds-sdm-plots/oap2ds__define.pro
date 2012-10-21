@@ -1,0 +1,1 @@
+../050-sdstats/oap2ds__define.pro
