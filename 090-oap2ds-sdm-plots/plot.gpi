@@ -3,13 +3,14 @@ set output 'oapplot.ps'
 set xlabel 'particle diameter [{/Symbol m}m]'
 set ylabel 'concentration [#/l/{/Symbol m}m]'
 set xrange [10:3e3]
-set yrange [.5e-6:2]
+set yrange [.5e-6:5]
 set logscale xy
 set format xy "%1.0e"
 set ytics 100
 set grid
 set key bottom left
 plot \
+  'bakerplot.txt' u 1:2 w lines t 'Baker et al. 2009, Fig 4' lw 10 lc rgb "gray", \
   '10122401.txt' u 1:($2>1e-6?$2:NaN) w histeps t 'sdm-coarse-8'   lw 2 lc rgb "red",  \
   '10122402.txt' u 1:($2>1e-6?$2:NaN) w histeps t 'sdm-coarse-32'  lw 4 lc rgb "red",  \
   '10122403.txt' u 1:($2>1e-6?$2:NaN) w histeps t 'sdm-coarse-128' lw 6 lc rgb "red",  \
