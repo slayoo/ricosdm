@@ -50,8 +50,8 @@ set bmargin 4
 set multiplot #layout 3,5 columns
 set size .17,.35
 
-set ylabel 'height [m]'
-set yrange [.35:1.3]
+set ylabel 'height [km]'
+set yrange [.35:1.65]
 set format y '%3.1f'
 
 
@@ -114,7 +114,7 @@ f = sim1; plot \
 set origin X,.31
 tmp = lw2
 f = sim2; replot 
-set xlabel 'CDNC [cm-3]'
+set xlabel 'CDNC [cm^{-3}]'
 set format x '%g'
 set origin X,0
 tmp = lw3
@@ -141,7 +141,7 @@ tmp = lw3
 f = sim3; replot 
 
 X=.48
-set xrange [0:1]
+set xrange [0:2.5]
 set xtics .5
 set format x ''
 set xlabel ''

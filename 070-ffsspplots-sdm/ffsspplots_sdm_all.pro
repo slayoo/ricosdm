@@ -5,7 +5,7 @@ pro plot_helper, xr=xr, yr=yr, xt=xt, yt=yt, nz=nz, data=data, zz=zz, file=file
   for iz=0,nz-1 do begin
     max >= n_elements(*data[iz])
   endfor
-  min_el = .1 * max ; TODO arbitrary value!
+  min_el = .05 * max ; TODO arbitrary value!
 
   if keyword_set(file) then openw, u, file, /get_lun
 
